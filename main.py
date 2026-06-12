@@ -3,6 +3,8 @@ import webbrowser
 import speech_recognition as sr
 from datetime import date
 import os
+from notes import save_note,open_note
+
 
 def speak(text):
     engine=pyttsx3.init()
@@ -50,6 +52,17 @@ def process_command(command):
         os.startfile("calc.exe")
     elif "clock" in command:
         os.system("start ms-clock:")
+    
+    elif "open note" in command:
+        speak("opening notes")
+        open_note()
+        
+    elif "note" in command :
+        speak("what should I write?")
+        note=listen()
+        save_note(note)
+        speak("note taken successfully!")
+
     else:
          speak("sorry i don't understand")
 
@@ -60,7 +73,7 @@ if __name__=="__main__":
         
         command=listen()  
         if command=="exit":
-           speak("happy to help you Bye")
+           speak("happy to help you. Bye")
            break
         else:
            process_command(command)
